@@ -3,7 +3,7 @@ var firstButton = document.getElementsByTagName("button")[0];
 var incompleteTaskHolder = document.getElementById("incomplete-tasks");
 var completedTasksHolder = document.getElementById("completed-tasks");
 
-//adding an extra comment
+//removing old comment
 var CreatingNewElements = function (taskString) {
   var newlist = document.createElement("li");
   var checkBox = document.createElement("input");
