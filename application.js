@@ -3,7 +3,7 @@ var firstButton = document.getElementsByTagName("button")[0];
 var incompleteTaskHolder = document.getElementById("incomplete-tasks");
 var completedTasksHolder = document.getElementById("completed-tasks");
 
-//new one changes in this file
+//new one changes in this file and now this is the last one
 
 var CreatingNewElements = function (taskString) {
   var newlist = document.createElement("li");
