@@ -65,3 +65,7 @@ input[type="text"] {
   font-family: Lato, sans-serif;
   color: #888;
 }
+
+#completed-tasks label {
+  text-decoration: line-through;
+}
