@@ -20,7 +20,9 @@ body {
 
 .delete,
 .add,
-.edit {
+.edit,
+.cancel,
+.save {
   border-radius: 10px;
   padding: 5px;
   background-color: darkorange;
@@ -30,6 +32,10 @@ body {
   cursor: pointer;
   font-size: 20px;
 }
+.cancel:hover {
+  color: red;
+}
+
 button:hover {
   color: white;
 }

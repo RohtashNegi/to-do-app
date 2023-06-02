@@ -1,7 +1,7 @@
-var taskInput = document.getElementById("New-Task");
-var firstButton = document.getElementsByTagName("button")[0];
-var incompleteTaskHolder = document.getElementById("incomplete-tasks");
-var completedTasksHolder = document.getElementById("completed-tasks");
+let taskInput = document.getElementById("New-Task");
+let firstButton = document.getElementsByTagName("button")[0];
+let incompleteTaskHolder = document.getElementById("incomplete-tasks");
+let completedTasksHolder = document.getElementById("completed-tasks");
 
 //new
 
@@ -11,6 +11,8 @@ var CreatingNewElements = function (taskString) {
   var newLabel = document.createElement("label");
   var editInput = document.createElement("input");
   var editButton = document.createElement("button");
+  var cancelButton = document.createElement("button");
+  var saveButton = document.createElement("button");
   var deleteButton = document.createElement("button");
 
   newLabel.innerText = taskString;
@@ -21,13 +23,21 @@ var CreatingNewElements = function (taskString) {
   editButton.className = "edit";
   deleteButton.innerText = "Delete";
   deleteButton.className = "delete";
+  cancelButton.innerText = "Cancel";
+  cancelButton.className = "cancel";
+  saveButton.innerText = "Save";
+  saveButton.className = "save";
 
   newlist.appendChild(checkBox);
   newlist.appendChild(newLabel);
   newlist.appendChild(editInput);
   newlist.appendChild(editButton);
   newlist.appendChild(deleteButton);
+  newlist.appendChild(cancelButton);
+  newlist.appendChild(saveButton);
   newlist.querySelector("input[type=text]").style.display = "none";
+  newlist.querySelector(".cancel").style.display = "none";
+  newlist.querySelector(".save").style.display = "none";
 
   editButton.addEventListener("click", showHide);
   function showHide() {
@@ -37,7 +47,47 @@ var CreatingNewElements = function (taskString) {
     } else {
       x.style.display = "none";
     }
+    newlist.querySelector(".edit").style.display = "none";
+    newlist.querySelector(".cancel").style.display = "block";
   }
+
+  saveButton.addEventListener("click", abc);
+  function abc() {
+    var newlist = this.parentNode;
+    var editInput = newlist.querySelector("input[type=text]");
+    var newlabel = newlist.querySelector("label");
+    newlabel.innerText = editInput.value;
+    editInput.value = "";
+  }
+
+  editInput.addEventListener("input", editInputTask);
+  function editInputTask() {
+    var newlist = this.parentNode;
+    var editInput = newlist.querySelector("input[type=text]");
+    var newlabel = newlist.querySelector("label");
+    var compareString = editInput.value.localeCompare(newlabel.innerText);
+    if (compareString) {
+      newlist.querySelector(".cancel").style.display = "none";
+      newlist.querySelector(".save").style.display = "block";
+    } else {
+      newlist.querySelector(".save").style.display = "none";
+      newlist.querySelector(".cancel").style.display = "block";
+    }
+  }
+  // var finalOutput = newLabel.innerText.localeCompare(editInput.value)
+
+  cancelButton.addEventListener("click", cancelButtonShow);
+  function cancelButtonShow() {
+    const x = newlist.querySelector("input[type=text]");
+    if (x.style.display === "none") {
+      x.style.display = "block";
+    } else {
+      x.style.display = "none";
+    }
+    newlist.querySelector(".edit").style.display = "block";
+    newlist.querySelector(".cancel").style.display = "none";
+  }
+
   return newlist;
 };
 
@@ -52,10 +102,9 @@ var addTask = function () {
   }
   taskInput.value = "";
 };
-// firstButton.addEventListener("click", addTask); // to add new list in UL
 
 var editTask = function () {
-  var newlist = this.parentNode; // this keyword refering to ?
+  var newlist = this.parentNode;
   var editInput = newlist.querySelector("input[type=text]");
   var newlabel = newlist.querySelector("label");
   var containsClass = newlist.classList.contains("editMode");
@@ -102,6 +151,7 @@ firstButton.addEventListener("click", addTask);
 
 var bindTaskEvents = function (taskListItem, checkBoxEventHandler) {
   console.log("bind list item events");
+
   //select ListItems children
   var checkBox = taskListItem.querySelector("input[type=checkbox]");
   var editButton = taskListItem.querySelector("button.edit");
