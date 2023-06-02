@@ -27,7 +27,17 @@ var CreatingNewElements = function (taskString) {
   newlist.appendChild(editInput);
   newlist.appendChild(editButton);
   newlist.appendChild(deleteButton);
+  newlist.querySelector("input[type=text]").style.display = "none";
 
+  editButton.addEventListener("click", showHide);
+  function showHide() {
+    const x = newlist.querySelector("input[type=text]");
+    if (x.style.display === "none") {
+      x.style.display = "block";
+    } else {
+      x.style.display = "none";
+    }
+  }
   return newlist;
 };
 
